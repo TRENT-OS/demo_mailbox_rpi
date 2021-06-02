@@ -1,0 +1,35 @@
+/* Copyright (C) 2020, HENSOLDT Cyber GmbH */
+
+/**
+ * @file
+ * @brief Assembly file of the CAmkES application.
+ */
+
+import <std_connector.camkes>;
+
+#include "components/mailbox_app/mailbox_app.camkes";
+RPi_MAILBOX_COMPONENT_DEFINE(RPi_MAILBOX)
+RPi_MAILBOX_HW_COMPONENT_DEFINE(RPi_MAILBOX_HW)
+
+assembly {
+    composition {
+        component   RPi_MAILBOX       mailbox;
+        component   RPi_MAILBOX_HW    mailbox_hw;
+
+        RPi_MAILBOX_INSTANCE_CONNECT(
+            mailbox,
+            mailbox_hw
+        )
+
+    }
+    configuration{
+        RPi_MAILBOX_HW_INSTANCE_CONFIGURE_SELF(
+            mailbox_hw
+        )
+
+        CONFIGURE_INSTANCE_MAILBOX_DRV(
+            mailbox,
+            4*40960
+        )
+    }
+}
