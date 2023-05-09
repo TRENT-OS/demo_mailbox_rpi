@@ -25,6 +25,7 @@
     component _name_ { \
         control; \
         dataport  Buf(RPi_MAILBOX_HW_BCM2837_DATAPORT_SIZE)  regBase; \
+        attribute int dma_pool_paddr = 0x30000000; \
     }
 
 #define RPi_MAILBOX_INSTANCE_CONNECT( \

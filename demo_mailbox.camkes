@@ -7,7 +7,8 @@
 
 import <std_connector.camkes>;
 
-#include "plat_defaults.h"
+#include "plat.camkes"
+
 RPi_MAILBOX_COMPONENT_DEFINE(RPi_MAILBOX)
 RPi_MAILBOX_HW_COMPONENT_DEFINE(RPi_MAILBOX_HW)
 
