@@ -6,7 +6,14 @@
 
 cmake_minimum_required(VERSION 3.17)
 
-os_set_config_file(system_config.h)
+#-------------------------------------------------------------------------------
+# use the SDK
+find_package("os-sdk" REQUIRED)
+os_sdk_set_defaults()
+os_sdk_setup(CONFIG_FILE "system_config.h" CONFIG_PROJECT "system_config")
+
+# Set additional include paths.
+CAmkESAddCPPInclude("plat/${PLATFORM}")
 
 #-------------------------------------------------------------------------------
 project(demo_mailbox C)
@@ -14,10 +21,8 @@ project(demo_mailbox C)
 DeclareCAmkESComponent(
     RPi_MAILBOX
     SOURCES
-        ./main.c
+        main.c
     INCLUDES
-        ./
-        ./plat/${PLATFORM}
         # no include paths needed
     C_FLAGS
         -Wall
@@ -28,5 +33,4 @@ DeclareCAmkESComponent(
         platsupport
 )
 
-DeclareAndCreateCamkESSystem(demo_mailbox.camkes)
-GenerateSimulateScript()
+os_sdk_create_CAmkES_system("demo_mailbox.camkes")
